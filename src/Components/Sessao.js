@@ -101,7 +101,7 @@ const LugaresContainer = styled.div`
 const Lugares = styled.button`
     width: 6.5vw;
     height: 6.5vw;
-    background: ${props=>props.disponibilidade? (props.paint===props.indice || props.select.includes(props.indice)? ()=> console.log(props.paint,props.indice,props.select) : '#C3CFD9') : '#FBE192'};
+    background: ${props=>props.disponibilidade? (props.paint===props.indice || props.select.includes(props.indice)? ()=> '#1AAE9E' : '#C3CFD9') : '#FBE192'};
     border: 1px solid #808F9D;
     border-radius: 50%;
     display: flex;
