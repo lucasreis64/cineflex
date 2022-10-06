@@ -4,7 +4,7 @@ import Filme from "./Filme"
 import Principal from "./Principal"
 import Header from "./Header"
 import Sessao from "./Sessao"
-import Sucesso from "./Sessao"
+import Sucesso from "./Sucesso"
 
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
                         <Route path="/" element={<Principal/>} />
                         <Route path="/filme/:idFilme" element={<Filme/>}/>
                         <Route path="/sessao/:idSessao" element={<Sessao/>}/>
-                        <Route path="/sucesso/:idSucesso" element={<Sucesso/>}/>
+                        <Route path="/sucesso" element={<Sucesso/>}/>
                 </Routes>
             </BrowserRouter>
         </>

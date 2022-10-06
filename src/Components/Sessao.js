@@ -3,20 +3,24 @@ import styled from "styled-components";
 import {useState, useEffect, useContext} from "react"
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { contexto } from "./Context";
 
 let assentosSelecionados = []
+let idSelecionados = []
 export default function Sessao() {
     const [sessaoInfo, setSessaoInfo] = useState(null)
     const {idSessao} = useParams()
-    const [paint, setPaint] =useState('')
-    
+    const [paint, setPaint] = useState('')
+    const [nome, setNome] = useState('')
+    const [cpf, setCpf] = useState('')
+    const {setNomeComprador, setCpfComprador, setAssentos, setDataFilme, setNomeFilme, nomeComprador} = useContext(contexto)
 
     
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
         filmePromise.then(resposta => {
 			setSessaoInfo(resposta.data);
+            console.log(resposta.data)
 		});
 
 		filmePromise.catch(erro => {
@@ -25,11 +29,25 @@ export default function Sessao() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function pintarAssento (avaiable, idx) {
+    function pintarAssento (avaiable, idx, id) {
         if (avaiable===true){
             setPaint(idx)
+            idSelecionados.push(id)
             assentosSelecionados.push(idx)
         }
+    }
+
+    function reservarAssento () {
+        
+        setNomeComprador(nome);setCpfComprador(cpf);setAssentos(idSelecionados); setDataFilme( `${sessaoInfo.day.weekday} - ${sessaoInfo.name}`); setNomeFilme ( sessaoInfo.movie.title)
+        console.log()
+        const obj = {
+            ids: idSelecionados, name: nome, cpf: cpf
+        }
+        console.log(obj)
+        const reservar = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', obj)
+        reservar.then((reservado)=>console.log(reservado));
+        reservar.catch((response)=>console.log(response.response))
     }
 
     return(
@@ -42,7 +60,7 @@ export default function Sessao() {
                             :
                             sessaoInfo.seats.map((s,index)=>{
                                 return(
-                                    <Lugares key={s.id} select={assentosSelecionados} indice={index} disponibilidade={s.isAvailable} onClick={()=>pintarAssento(s.isAvailable, index)} paint={paint}>
+                                    <Lugares key={s.id} select={assentosSelecionados} indice={index} disponibilidade={s.isAvailable} onClick={()=>pintarAssento(s.isAvailable, index, s.id)} paint={paint}>
                                         {s.name}
                                     </Lugares>
                             )})
@@ -53,6 +71,13 @@ export default function Sessao() {
                         <div><Button borda={'#7B8B99'} cor={'#C3CFD9'}/>{'Disponível'}</div>
                         <div><Button borda={'#F7C52B'} cor={'#FBE192'}/>{'Indisponível'}</div>
                     </Demonstracao>
+                    <Form action='/sucesso' onSubmit={()=>reservarAssento()}>
+                        <h1>Nome do comprador</h1>
+                        <input required value={nome} onChange={(e)=>setNome(e.target.value)}/>
+                        <h1>CPF do comprador</h1>
+                        <input required value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))} onChange={(e)=>setCpf(e.target.value.replace(/[^0-9]/g, ''))} onInvalid={(e)=>e.target.setCustomValidity('CPF INVÁLIDO!')}/>
+                        <button>Reservar assento(s)</button>
+                    </Form>
             </SessaoContainer>
             <FilmeFooter>
                 <MolduraFilme><img  src={sessaoInfo?sessaoInfo.movie.posterURL:'Carregando...'} alt=''/></MolduraFilme>
@@ -61,6 +86,10 @@ export default function Sessao() {
         </>
     )
 };
+
+const Form = styled.form`
+
+`
 
 const Button = styled.button`
         width: 6.5vw;
@@ -141,14 +170,15 @@ const FilmeFooter = styled.div`
 `
 
 const MolduraFilme = styled.div`
-    width: 13vw;
-    padding: 1vh 0.75vh;
+    width: 8vh;
+    padding: 0.75vh 0.75vh;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: white;
+    box-sizing: border-box;
 
     img{
         width: 100%;

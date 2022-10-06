@@ -95,21 +95,21 @@ const FilmeFooter = styled.div`
     border: 1px solid #9EADBA;
     display: flex;
     align-items: center;
-    padding: 0 2vw;
+    padding: 1vh 2vw;
     gap: 3vw;
     box-sizing: border-box;
 `
 
 const MolduraFilme = styled.div`
-    width: 13vw;
-    padding: 1vh 0.75vh;
+    width: 8vh;
+    padding: 0.75vh 0.75vh;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: white;
-
+    box-sizing: border-box;
     img{
         width: 100%;
     }
