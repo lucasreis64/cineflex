@@ -6,9 +6,8 @@ import Header from "./Header"
 import Sessao from "./Sessao"
 import Sucesso from "./Sucesso"
 
-
 export default function App() {
-
+    
     return (
         <>
             <GlobalStyle/>

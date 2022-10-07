@@ -1,19 +1,22 @@
 import styled from "styled-components";
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { contexto } from "./Context";
 
 export default function Filme() {
     const [filmeInfo, setFilmeInfo] = useState(null)
     const [filmeCapa, setFilmeCapa] = useState({})
     const {idFilme} = useParams()
+    const {nomeComprador,setNomeComprador} = useContext(contexto)
     
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`)
         filmePromise.then(resposta => {
 			setFilmeInfo(resposta.data.days);
             setFilmeCapa(resposta.data)
+            setNomeComprador('oi')
 		});
 
 		filmePromise.catch(erro => {
@@ -21,7 +24,7 @@ export default function Filme() {
 		});
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
+    console.log(nomeComprador)
     return(
         <>
         <FilmeContainer>

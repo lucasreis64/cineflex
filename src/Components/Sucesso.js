@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import styled from "styled-components";
-import { contexto } from "./Context";
 import { useContext } from "react";
+import { contexto } from "./Context";
 
 export default function Sucesso() {
     const {nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme} = useContext(contexto)
-    console.log(nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme)
+    console.log(nomeComprador)
     return(
         <>
             <SucessoContainer>
@@ -16,7 +16,7 @@ export default function Sucesso() {
                 </div>
                 <div>
                     <h2>Ingressos</h2>
-                    {assentos.map(a=><h3>Assento {a}</h3>)}
+                    {assentos.map(a=><h3>Assento {a+1}</h3>)}
                 </div>
                 <div>
                     <h2>Comprador</h2>

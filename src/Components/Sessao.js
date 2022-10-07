@@ -1,20 +1,16 @@
 /* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import {useState, useEffect, useContext} from "react"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { contexto } from "./Context";
 
-let assentosSelecionados = []
-let idSelecionados = []
 export default function Sessao() {
     const [sessaoInfo, setSessaoInfo] = useState(null)
     const {idSessao} = useParams()
     const [paint, setPaint] = useState('')
     const [nome, setNome] = useState('')
     const [cpf, setCpf] = useState('')
-    const {setNomeComprador, setCpfComprador, setAssentos, setDataFilme, setNomeFilme, nomeComprador} = useContext(contexto)
-
     
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -29,55 +25,13 @@ export default function Sessao() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function pintarAssento (avaiable, idx, id) {
-        if (avaiable===true){
-            setPaint(idx)
-            idSelecionados.push(id)
-            assentosSelecionados.push(idx)
-        }
-    }
-
-    function reservarAssento () {
-        
-        setNomeComprador(nome);setCpfComprador(cpf);setAssentos(idSelecionados); setDataFilme( `${sessaoInfo.day.weekday} - ${sessaoInfo.name}`); setNomeFilme ( sessaoInfo.movie.title)
-        console.log()
-        const obj = {
-            ids: idSelecionados, name: nome, cpf: cpf
-        }
-        console.log(obj)
-        const reservar = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', obj)
-        reservar.then((reservado)=>console.log(reservado));
-        reservar.catch((response)=>console.log(response.response))
-    }
-
     return(
         <>
             <SessaoContainer>
                     <h1>Selecione os assentos</h1>
-                    <LugaresContainer>
-                        {(sessaoInfo===null)?
-                            "Carregando..."
-                            :
-                            sessaoInfo.seats.map((s,index)=>{
-                                return(
-                                    <Lugares key={s.id} select={assentosSelecionados} indice={index} disponibilidade={s.isAvailable} onClick={()=>pintarAssento(s.isAvailable, index, s.id)} paint={paint}>
-                                        {s.name}
-                                    </Lugares>
-                            )})
-                        }
-                    </LugaresContainer>
-                    <Demonstracao>
-                        <div><Button borda={'#0E7D71'} cor={'#1AAE9E'}/>{'Selecionado'}</div>
-                        <div><Button borda={'#7B8B99'} cor={'#C3CFD9'}/>{'Disponível'}</div>
-                        <div><Button borda={'#F7C52B'} cor={'#FBE192'}/>{'Indisponível'}</div>
-                    </Demonstracao>
-                    <Form action='/sucesso' onSubmit={()=>reservarAssento()}>
-                        <h1>Nome do comprador</h1>
-                        <input required value={nome} onChange={(e)=>setNome(e.target.value)}/>
-                        <h1>CPF do comprador</h1>
-                        <input required value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))} onChange={(e)=>setCpf(e.target.value.replace(/[^0-9]/g, ''))} onInvalid={(e)=>e.target.setCustomValidity('CPF INVÁLIDO!')}/>
-                        <button>Reservar assento(s)</button>
-                    </Form>
+                    <LugaresContainerDiv sessaoInfo={sessaoInfo} setPaint={setPaint} paint={paint}/>
+                    <DemonstracaoDiv/>
+                    <FormDiv sessaoInfo={sessaoInfo} setNome={setNome} nome={nome} cpf={cpf} setCpf={setCpf} />
             </SessaoContainer>
             <FilmeFooter>
                 <MolduraFilme><img  src={sessaoInfo?sessaoInfo.movie.posterURL:'Carregando...'} alt=''/></MolduraFilme>
@@ -86,6 +40,108 @@ export default function Sessao() {
         </>
     )
 };
+
+function FormDiv ({sessaoInfo, setNome, nome, cpf, setCpf}) {
+    const {setNomeFilme, setDataFilme, setCpfComprador, setNomeComprador, setAssentos, idSelecionados, assentosSelecionados} = useContext(contexto)
+
+    let navigate = useNavigate()
+    function reservarAssento (event) {
+        event.preventDefault();
+
+        setNomeComprador(nome); setNomeFilme(sessaoInfo.movie.title); setAssentos(assentosSelecionados);
+        setDataFilme(`${sessaoInfo.day.weekday} - ${sessaoInfo.name}`); setCpfComprador(cpf);
+
+        const obj = {
+            ids: idSelecionados, name: nome, cpf: cpf
+        }
+
+
+        const reservar = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', obj)
+        reservar.then((reservado)=>navigate('/sucesso'));
+        reservar.catch((response)=>console.log(response.response))
+    }
+
+    return (
+        <Form action='/sucesso' onSubmit={reservarAssento}>
+            <h1>Nome do comprador</h1>
+            <input required value={nome} onChange={(e)=>setNome(e.target.value)}/>
+            <h1>CPF do comprador</h1>
+            <input required value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))} onChange={(e)=>setCpf(e.target.value.replace(/[^0-9]/g, ''))} onInvalid={(e)=>e.target.setCustomValidity('CPF INVÁLIDO!')}/>
+            <button>Reservar assento(s)</button>
+        </Form>
+    )
+}
+
+function LugaresContainerDiv ({sessaoInfo, setPaint, paint}) {
+    const {idSelecionados, assentosSelecionados, setIdSelecionados, setAssentosSelecionados}=useContext(contexto)
+    const [disparador, setDisparador] = useState(1)
+    console.log(assentosSelecionados)
+    function pintarAssento (avaiable, idx, id) {
+    if (avaiable===true){
+            if (id===undefined) {
+                return '#C3CFD9'
+            }
+            if(idSelecionados.includes(id)){
+                const index = idSelecionados.indexOf(id, 0)
+                let idCopy = idSelecionados
+                let assentosCopy = assentosSelecionados
+                idCopy.splice(index,1)
+                assentosCopy.splice(index,1)
+                console.log(idSelecionados, assentosSelecionados, idCopy, assentosCopy)
+                setIdSelecionados(idCopy)
+                setAssentosSelecionados(assentosCopy)
+                setDisparador(disparador+1)
+                return '#C3CFD9'
+            }
+            else {
+                setPaint(idx)
+                let idCopy = idSelecionados
+                let assentosCopy = assentosSelecionados
+                idCopy.push(id)
+                assentosCopy.push(idx)
+                setIdSelecionados(idCopy)
+                setAssentosSelecionados(assentosCopy)
+                return '#1AAE9E'
+            }
+        }
+    else {
+        return '#FBE192'
+    }
+    }
+
+    return(
+        <LugaresContainer>
+            {(sessaoInfo===null)?
+                "Carregando..."
+                :
+                sessaoInfo.seats.map((s,index)=>{
+                    return(
+                        <Lugares key={s.id} disparador={disparador} assentosSelecionados={assentosSelecionados} verificarSelecionado={verificarSelecionado} indice={index} disponibilidade={s.isAvailable} onClick={()=>pintarAssento(s.isAvailable, index, s.id)} paint={paint} pintar={()=>pintarAssento(s.isAvailable)}>
+                            {s.name}
+                        </Lugares>
+                )})
+            }
+        </LugaresContainer>
+    )
+}
+
+function DemonstracaoDiv () {
+    return (
+        <Demonstracao>
+            <div><Button borda={'#0E7D71'} cor={'#1AAE9E'}/>{'Selecionado'}</div>
+            <div><Button borda={'#7B8B99'} cor={'#C3CFD9'}/>{'Disponível'}</div>
+            <div><Button borda={'#F7C52B'} cor={'#FBE192'}/>{'Indisponível'}</div>
+        </Demonstracao>
+    )
+}
+
+function verificarSelecionado (idx, assentos) {
+    if(assentos.includes(idx)){
+        console.log('ok')
+        return true
+    }
+    else{return false}
+}   
 
 const Form = styled.form`
 
@@ -130,7 +186,7 @@ const LugaresContainer = styled.div`
 const Lugares = styled.button`
     width: 6.5vw;
     height: 6.5vw;
-    background: ${props=>props.disponibilidade? (props.paint===props.indice || props.select.includes(props.indice)? ()=> '#1AAE9E' : '#C3CFD9') : '#FBE192'};
+    background: ${props=> verificarSelecionado(props.indice, props.assentosSelecionados) && props.disparador ? '#1AAE9E' : props.pintar};
     border: 1px solid #808F9D;
     border-radius: 50%;
     display: flex;
