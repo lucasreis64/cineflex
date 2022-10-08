@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext} from "react"
 import { useNavigate } from "react-router-dom";
-import { contexto } from "../Context";
+import { contexto } from "../Context/Context";
 import axios from "axios";
 
 

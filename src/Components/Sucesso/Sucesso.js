@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useContext } from "react";
-import { contexto } from "./Context";
+import { contexto } from "../Context/Context";
 
 export default function Sucesso() {
     const {nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme} = useContext(contexto)

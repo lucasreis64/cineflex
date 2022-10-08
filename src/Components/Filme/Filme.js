@@ -3,7 +3,7 @@ import {useState, useEffect, useContext} from "react"
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { contexto } from "./Context";
+import { contexto } from "../Context/Context";
 
 export default function Filme() {
     const [filmeInfo, setFilmeInfo] = useState(null)

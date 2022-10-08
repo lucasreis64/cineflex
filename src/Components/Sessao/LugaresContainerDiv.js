@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {useState, useContext} from "react"
-import { contexto } from "../Context";
+import { contexto } from "../Context/Context";
 
 export default function LugaresContainerDiv({setPaint, sessaoInfo, paint}) {
 
