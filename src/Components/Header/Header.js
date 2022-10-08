@@ -19,6 +19,6 @@ const HeaderDiv = styled.div`
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    font-size: 4.5vh;
+    font-size: 10vw;
     color: #e8833a;
 `

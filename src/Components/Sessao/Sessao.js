@@ -29,7 +29,7 @@ export default function Sessao() {
     return(
         <>
             <SessaoContainer>
-                    <h1>Selecione os assentos</h1>
+                    <h1>Selecione o(s) assento(s)</h1>
                     <LugaresContainerDiv sessaoInfo={sessaoInfo} setPaint={setPaint} paint={paint}/>
                     <DemonstracaoDiv/>
                     <FormDiv sessaoInfo={sessaoInfo} setNome={setNome} nome={nome} cpf={cpf} setCpf={setCpf} />
@@ -43,6 +43,7 @@ export default function Sessao() {
 };
 
 const SessaoContainer = styled.div`
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -52,7 +53,7 @@ const SessaoContainer = styled.div`
         width: 100%;
         text-align: center;
         margin-bottom: 2vh;
-        font-size: 8vw;
+        font-size: 6vw;
     }
 `
 
@@ -69,6 +70,7 @@ const FilmeFooter = styled.div`
     padding: 0 2vw;
     gap: 3vw;
     box-sizing: border-box;
+    font-size: 6.5vw;
 `
 
 const MolduraFilme = styled.div`

@@ -61,7 +61,7 @@ const FilmeContainer = styled.div`
         width: 100%;
         text-align: center;
         margin-bottom: 2vh;
-        font-size: 8vw;
+        font-size: 6.5vw;
     }
 `
 
@@ -85,6 +85,7 @@ const ButtonContainer = styled.div`
         color: white;
         height: 4.5vh;
         width: 23vw;
+        font-size: 5vw;
     }
 `
 
@@ -101,6 +102,7 @@ const FilmeFooter = styled.div`
     padding: 1vh 2vw;
     gap: 3vw;
     box-sizing: border-box;
+    font-size: 7vw;
 `
 
 const MolduraFilme = styled.div`
