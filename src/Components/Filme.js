@@ -9,7 +9,7 @@ export default function Filme() {
     const [filmeInfo, setFilmeInfo] = useState(null)
     const [filmeCapa, setFilmeCapa] = useState({})
     const {idFilme} = useParams()
-    const {nomeComprador,setNomeComprador} = useContext(contexto)
+    const {setNomeComprador} = useContext(contexto)
     
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`)
@@ -24,7 +24,7 @@ export default function Filme() {
 		});
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    console.log(nomeComprador)
+
     return(
         <>
         <FilmeContainer>

@@ -3,7 +3,7 @@ import GlobalStyle from "../Auxiliares/GlobalStyles"
 import Filme from "./Filme"
 import Principal from "./Principal"
 import Header from "./Header"
-import Sessao from "./Sessao"
+import Sessao from "./Sessao/Sessao"
 import Sucesso from "./Sucesso"
 
 export default function App() {
