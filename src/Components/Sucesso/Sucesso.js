@@ -23,6 +23,7 @@ export default function Sucesso() {
                     <h3>Nome: {nomeComprador}</h3>
                     <h3>CPF: {cpfComprador}</h3>
                 </div>
+                <button onClick={()=>window.location.reload()}>Voltar para Home</button>
         </SucessoContainer>
         </>
     )
@@ -34,13 +35,32 @@ const SucessoContainer = styled.div`
     justify-content: center;
     gap: 4vh;
     padding: 12vh 5.5vw 18vh;
+    font-size: 4vw;
     h1{
         width: 100%;
         text-align: center;
         margin-bottom: 2vh;
-        font-size: 8vw;
+        font-size: 7vw;
+        color:green;
+        font-weight: bold;
     }
     h2{
         font-weight: bold;
+        font-size: 4.5vw;
+        margin-bottom: 5px;
+    }
+    h3{
+        margin-bottom: 2px;
+    }
+    button{
+        align-self: center;
+        background: #E8833A;
+        border-radius: 3px;
+        border: none;
+        width: 60vw;
+        height: 6vh;
+        margin-top: 3.5vh;
+        color: white;
+        font-size: 5vw;
     }
 `
