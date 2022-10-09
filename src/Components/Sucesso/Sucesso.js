@@ -2,10 +2,19 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { contexto } from "../Context/Context";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Sucesso() {
-    const {nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme} = useContext(contexto)
-    console.log(nomeComprador)
+    const {nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme, setNomeComprador, setCpfComprador, setAssentos, setDataFilme, setNomeFilme} = useContext(contexto)
+    let navigate = useNavigate()
+
+    function zerarTudo(){
+        setNomeComprador(''); setNomeFilme(''); setAssentos('');
+        setDataFilme(''); setCpfComprador('');
+        navigate('/sucesso')
+    }
+
     return(
         <>
             <SucessoContainer>
@@ -23,7 +32,7 @@ export default function Sucesso() {
                     <h3>Nome: {nomeComprador}</h3>
                     <h3>CPF: {cpfComprador}</h3>
                 </div>
-                <button onClick={()=>window.location.reload()}>Voltar para Home</button>
+                <button onClick={()=>zerarTudo()}>Voltar para Home</button>
         </SucessoContainer>
         </>
     )
