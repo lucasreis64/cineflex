@@ -12,7 +12,7 @@ export default function Sucesso() {
     function zerarTudo(){
         setNomeComprador(''); setNomeFilme(''); setAssentos('');
         setDataFilme(''); setCpfComprador('');
-        navigate('/sucesso')
+        navigate('/')
     }
 
     return(
@@ -25,7 +25,7 @@ export default function Sucesso() {
                 </div>
                 <div>
                     <h2>Ingressos</h2>
-                    {assentos.map(a=><h3>Assento {a+1}</h3>)}
+                    {assentos.map((a,idx)=><h3 key={idx}>Assento {a+1}</h3>)}
                 </div>
                 <div>
                     <h2>Comprador</h2>
