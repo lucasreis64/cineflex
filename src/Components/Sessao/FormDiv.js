@@ -34,7 +34,8 @@ export default function FormDiv ({sessaoInfo, setNome, nome, cpf, setCpf}) {
         <>
             <Form action='/sucesso' onSubmit={reservarAssento}>
                 <h1>Nome do comprador:</h1>
-                <input data-identifier="buyer-name-input" required name="nome" placeholder="Digite seu nome..." value={nome} onChange={(e)=>setNome(e.target.value)}/>
+                <input data-identifier="buyer-name-input" required name="nome" placeholder="Digite seu nome..." value={nome} onChange={(e)=>setNome(e.target.value)}
+                pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" onInvalid={(e)=>e.target.setCustomValidity('Apenas letras!')} onInput={(e)=>(e.target.setCustomValidity(''))}/>
                 <h1>CPF do comprador:</h1>
                 <input data-identifier="buyer-cpf-input" required name="cpf" placeholder="Digite seu CPF..." value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))}
                 onChange={(e)=>setCpf(e.target.value.replace(/[^0-9]/g, ''))} onInvalid={(e)=>e.target.setCustomValidity('CPF INVÁLIDO!')}/>
