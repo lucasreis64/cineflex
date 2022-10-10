@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export default function Header() {
     return (
-        <HeaderDiv>CINEFLEX</HeaderDiv>
+        <>
+            <HeaderDiv>CINEFLEX</HeaderDiv>
+        </>
     )
 }
 
@@ -22,3 +24,4 @@ const HeaderDiv = styled.div`
     font-size: 10vw;
     color: #e8833a;
 `
+

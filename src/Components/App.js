@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import GlobalStyle from "../Auxiliares/GlobalStyles"
 import Filme from "./Filme/Filme"
 import Principal from "./Principal/Principal"
@@ -6,11 +6,17 @@ import Header from "./Header/Header"
 import Sessao from "./Sessao/Sessao"
 import Sucesso from "./Sucesso/Sucesso"
 
+
+
 export default function App() {
-    
+
+   
+
+
     return (
         <>
             <GlobalStyle/>
+            
             <Header/>
             <BrowserRouter>
                 <Routes>
@@ -23,4 +29,3 @@ export default function App() {
         </>
     )
 };
-

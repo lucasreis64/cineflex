@@ -5,6 +5,7 @@ import { contexto } from "../Context/Context";
 import { useNavigate } from "react-router-dom";
 
 
+
 export default function Sucesso() {
     const {nomeComprador, cpfComprador, assentos, dataFilme, nomeFilme, setNomeComprador, setCpfComprador, setAssentos, setDataFilme, setNomeFilme} = useContext(contexto)
     let navigate = useNavigate()
@@ -16,7 +17,7 @@ export default function Sucesso() {
     }
 
     return(
-        <>
+        <>  
             <SucessoContainer>
                 <h1>Pedido feito com sucesso!</h1>
                 <div>
@@ -37,6 +38,8 @@ export default function Sucesso() {
         </>
     )
 };
+
+
 
 const SucessoContainer = styled.div`
     display: flex;
@@ -73,3 +76,4 @@ const SucessoContainer = styled.div`
         font-size: 5vw;
     }
 `
+

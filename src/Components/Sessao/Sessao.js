@@ -1,18 +1,25 @@
 /* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import {useState, useEffect} from "react"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormDiv from "./FormDiv"
 import DemonstracaoDiv from "./DemonstracaoDiv"
 import LugaresContainerDiv from "./LugaresContainerDiv"
+import back from "../../img/back.svg"
 
 export default function Sessao() {
+    const navigate=useNavigate()
     const [sessaoInfo, setSessaoInfo] = useState(null)
     const {idSessao} = useParams()
     const [paint, setPaint] = useState('')
     const [nome, setNome] = useState('')
     const [cpf, setCpf] = useState('')
+
+    function retroceder(){
+        navigate(-1)
+    }
+
     
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -28,6 +35,7 @@ export default function Sessao() {
 
     return(
         <>
+            <BotaoVoltar onClick={retroceder} src = {back} alt = "" />
             <SessaoContainer>
                     <h1>Selecione o(s) assento(s)</h1>
                     <LugaresContainerDiv sessaoInfo={sessaoInfo} setPaint={setPaint} paint={paint}/>
@@ -87,4 +95,13 @@ const MolduraFilme = styled.div`
     img{
         width: 100%;
     }
+`
+
+const BotaoVoltar = styled.img`
+    width: 7vw;
+    height: 7vw;
+    position: fixed;
+    top: 2.5%;
+    left: 3%;
+    z-index: 3;
 `

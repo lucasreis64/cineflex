@@ -2,15 +2,24 @@ import styled from "styled-components";
 import {useState, useEffect, useContext} from "react"
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { contexto } from "../Context/Context";
+import back from "../../img/back.svg"
+
+
+
+
+
 
 export default function Filme() {
+    const navigate=useNavigate()
     const [filmeInfo, setFilmeInfo] = useState(null)
     const [filmeCapa, setFilmeCapa] = useState({})
     const {idFilme} = useParams()
     const {setNomeComprador} = useContext(contexto)
-    
+    function retroceder(){
+        navigate(-1)
+    }
     useEffect(()=>{
         const filmePromise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idFilme}/showtimes`)
         filmePromise.then(resposta => {
@@ -26,26 +35,27 @@ export default function Filme() {
     }, []);
 
     return(
-        <>
-        <FilmeContainer>
-                <h1>Selecione o horário</h1>
-                {(filmeInfo===null)?
-                    "Carregando..."
-                    :
-                    filmeInfo.map((f)=>{
-                        return(
-                            <Disponibilidade key={f.id}>
-                                <h2>{f.weekday} - {f.date}</h2>
-                                <ButtonContainer>
-                                    {f.showtimes.map((s)=>{
-                                        return <Link key={s.id} to={`/sessao/${s.id}`}><button>{s.name}</button></Link>}
-                                    )}
-                                </ButtonContainer>
-                            </Disponibilidade>
-                    )})
-                }
-        </FilmeContainer>
-        <FilmeFooter><MolduraFilme><img  src={filmeCapa.posterURL} alt=''/></MolduraFilme><h1>{filmeInfo?filmeCapa.title:'Carregando...'}</h1></FilmeFooter>
+        <>  
+            <BotaoVoltar onClick={retroceder} src = {back} alt = "" />
+            <FilmeContainer>
+                    <h1>Selecione o horário</h1>
+                    {(filmeInfo===null)?
+                        "Carregando..."
+                        :
+                        filmeInfo.map((f)=>{
+                            return(
+                                <Disponibilidade key={f.id}>
+                                    <h2>{f.weekday} - {f.date}</h2>
+                                    <ButtonContainer>
+                                        {f.showtimes.map((s)=>{
+                                            return <Link key={s.id} to={`/sessao/${s.id}`}><button>{s.name}</button></Link>}
+                                        )}
+                                    </ButtonContainer>
+                                </Disponibilidade>
+                        )})
+                    }
+            </FilmeContainer>
+            <FilmeFooter><MolduraFilme><img  src={filmeCapa.posterURL} alt=''/></MolduraFilme><h1>{filmeInfo?filmeCapa.title:'Carregando...'}</h1></FilmeFooter>
         </>
     )
 };
@@ -118,4 +128,12 @@ const MolduraFilme = styled.div`
     img{
         width: 100%;
     }
+`
+const BotaoVoltar = styled.img`
+    width: 7vw;
+    height: 7vw;
+    position: fixed;
+    top: 2.5%;
+    left: 3%;
+    z-index: 3;
 `

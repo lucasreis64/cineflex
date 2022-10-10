@@ -3,7 +3,7 @@ import axios from "axios";
 import {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
 
-export default function Principal(params) {
+export default function Principal() {
     const [filmes, setFilmes] = useState(null)
 
     useEffect(() => {
@@ -16,7 +16,8 @@ export default function Principal(params) {
 		filmesPromise.catch(erro => {
 			console.log(erro.response);
 		});
-	}, []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	});
     
     return(
             <FilmesContainer>
