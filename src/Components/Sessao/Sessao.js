@@ -44,7 +44,10 @@ export default function Sessao() {
             </SessaoContainer>
             <FilmeFooter>
                 <MolduraFilme><img  src={sessaoInfo?sessaoInfo.movie.posterURL:'Carregando...'} alt=''/></MolduraFilme>
-                <div><h1>{sessaoInfo?sessaoInfo.movie.title:'Carregando...'}</h1><h1>{sessaoInfo?`${sessaoInfo.day.weekday} - ${sessaoInfo.name}`:'Carregando...'}</h1></div>
+                <div data-identifier="movie-and-session-infos-preview">
+                    <h1>{sessaoInfo?sessaoInfo.movie.title:'Carregando...'}</h1>
+                    <h1>{sessaoInfo?`${sessaoInfo.day.weekday} - ${sessaoInfo.name}`:'Carregando...'}</h1>
+                </div>
             </FilmeFooter>
         </>
     )

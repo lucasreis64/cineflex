@@ -13,27 +13,29 @@ export default function Sucesso() {
     function zerarTudo(){
         setNomeComprador(''); setNomeFilme(''); setAssentos('');
         setDataFilme(''); setCpfComprador('');
-        navigate('/')
+        navigate('/');
     }
 
     return(
         <>  
             <SucessoContainer>
                 <h1>Pedido feito com sucesso!</h1>
-                <div>
+                <div >
                     <h2>Filme e sessão</h2>
-                    <h3>{nomeFilme}<br/>{dataFilme}</h3>
+                    <h3 data-identifier="movie-session-infos-reserve-finished">{nomeFilme}<br/>{dataFilme}</h3>
                 </div>
                 <div>
                     <h2>Ingressos</h2>
-                    {assentos.map((a,idx)=><h3 key={idx}>Assento {a+1}</h3>)}
+                    <div data-identifier="seat-infos-reserve-finished">{assentos.map((a,idx)=><h3  key={idx}>Assento {a+1}</h3>)}</div>
                 </div>
                 <div>
                     <h2>Comprador</h2>
-                    <h3>Nome: {nomeComprador}</h3>
-                    <h3>CPF: {cpfComprador}</h3>
+                    <div data-identifier="buyer-infos-reserve-finished">
+                        <h3>Nome: {nomeComprador}</h3>
+                        <h3>CPF: {cpfComprador}</h3>
+                    </div>
                 </div>
-                <button onClick={()=>zerarTudo()}>Voltar para Home</button>
+                <button data-identifier="back-to-home-btn" onClick={()=>zerarTudo()}>Voltar para Home</button>
         </SucessoContainer>
         </>
     )

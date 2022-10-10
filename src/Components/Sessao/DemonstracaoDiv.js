@@ -3,9 +3,9 @@ import styled from "styled-components"
 export default function DemonstracaoDiv() {
     return (
         <Demonstracao>
-            <div><Button borda={'#0E7D71'} cor={'#1AAE9E'}/>{'Selecionado'}</div>
-            <div><Button borda={'#7B8B99'} cor={'#C3CFD9'}/>{'Disponível'}</div>
-            <div><Button borda={'#F7C52B'} cor={'#FBE192'}/>{'Indisponível'}</div>
+            <div data-identifier="seat-selected-subtitle"><Button borda={'#0E7D71'} cor={'#1AAE9E'}/>{'Selecionado'}</div>
+            <div ><Button data-identifier="seat-available-subtitle" borda={'#7B8B99'} cor={'#C3CFD9'}/>{'Disponível'}</div>
+            <div><Button data-identifier="seat-unavailable-subtitle" borda={'#F7C52B'} cor={'#FBE192'}/>{'Indisponível'}</div>
         </Demonstracao>
     )
 };

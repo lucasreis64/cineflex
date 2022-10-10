@@ -52,7 +52,7 @@ export default function LugaresContainerDiv({setPaint, sessaoInfo, paint}) {
                 :
                 sessaoInfo.seats.map((s,index)=>{
                     return(
-                        <Lugares key={s.id} disparador={disparador} assentosSelecionados={assentosSelecionados} verificarSelecionado={verificarSelecionado}
+                        <Lugares data-identifier="seat" key={s.id} disparador={disparador} assentosSelecionados={assentosSelecionados} verificarSelecionado={verificarSelecionado}
                         indice={index} disponibilidade={s.isAvailable} onClick={()=>pintarAssento(s.isAvailable, index, s.id)} paint={paint} pintar={()=>pintarAssento(s.isAvailable)}>
                             {s.name}
                         </Lugares>

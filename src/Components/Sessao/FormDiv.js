@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 export default function FormDiv ({sessaoInfo, setNome, nome, cpf, setCpf}) {
-    const {setNomeFilme, setDataFilme, setCpfComprador, setNomeComprador, setAssentos, idSelecionados, assentosSelecionados} = useContext(contexto)
+    const {setNomeFilme, setDataFilme, setCpfComprador, setNomeComprador, setAssentos, idSelecionados, assentosSelecionados, setAssentosSelecionados, setIdSelecionados} = useContext(contexto)
     const [erro, setErro] = useState(false)
 
     let navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function FormDiv ({sessaoInfo, setNome, nome, cpf, setCpf}) {
         event.preventDefault();
 
         setNomeComprador(nome); setNomeFilme(sessaoInfo.movie.title); setAssentos(assentosSelecionados);
-        setDataFilme(`${sessaoInfo.day.weekday} - ${sessaoInfo.name}`); setCpfComprador(cpf);
+        setDataFilme(`${sessaoInfo.day.weekday} - ${sessaoInfo.name}`); setCpfComprador(cpf);setAssentosSelecionados([]);setIdSelecionados([]);
 
         const obj = {
             ids: idSelecionados, name: nome, cpf: cpf
@@ -34,11 +34,11 @@ export default function FormDiv ({sessaoInfo, setNome, nome, cpf, setCpf}) {
         <>
             <Form action='/sucesso' onSubmit={reservarAssento}>
                 <h1>Nome do comprador:</h1>
-                <input required name="nome" placeholder="Digite seu nome..." value={nome} onChange={(e)=>setNome(e.target.value)}/>
+                <input data-identifier="buyer-name-input" required name="nome" placeholder="Digite seu nome..." value={nome} onChange={(e)=>setNome(e.target.value)}/>
                 <h1>CPF do comprador:</h1>
-                <input required name="cpf" placeholder="Digite seu CPF..." value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))}
+                <input data-identifier="buyer-cpf-input" required name="cpf" placeholder="Digite seu CPF..." value={cpf} maxLength="11" pattern="[0-9]{11}" onInput={(e)=>(e.target.setCustomValidity(''))}
                 onChange={(e)=>setCpf(e.target.value.replace(/[^0-9]/g, ''))} onInvalid={(e)=>e.target.setCustomValidity('CPF INVÁLIDO!')}/>
-                <button>Reservar assento(s)</button>
+                <button data-identifier="reservation-btn">Reservar assento(s)</button>
             </Form>
             {erro?<MensagemErro setErro={setErro}/>:true}
         </>

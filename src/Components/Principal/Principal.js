@@ -28,7 +28,7 @@ export default function Principal() {
                     filmes.map((f)=>{
                         return(
                         <Link key={f.id} to={`/filme/${f.id}`} className="link">
-                            <MolduraFilme><img  src={f.posterURL} alt={f.title}/></MolduraFilme>
+                            <MolduraFilme data-identifier="movie-outdoor"><img  src={f.posterURL} alt={f.title}/></MolduraFilme>
                         </Link>
                     )})
                 }

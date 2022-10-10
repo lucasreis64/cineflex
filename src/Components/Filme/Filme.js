@@ -45,17 +45,21 @@ export default function Filme() {
                         filmeInfo.map((f)=>{
                             return(
                                 <Disponibilidade key={f.id}>
-                                    <h2>{f.weekday} - {f.date}</h2>
+                                    <h2 data-identifier="session-date">{f.weekday} - {f.date}</h2>
                                     <ButtonContainer>
                                         {f.showtimes.map((s)=>{
-                                            return <Link key={s.id} to={`/sessao/${s.id}`}><button>{s.name}</button></Link>}
+                                            return <Link key={s.id} to={`/sessao/${s.id}`}><button data-identifier="hour-minute-btn">{s.name}</button></Link>}
                                         )}
                                     </ButtonContainer>
                                 </Disponibilidade>
                         )})
                     }
             </FilmeContainer>
-            <FilmeFooter><MolduraFilme><img  src={filmeCapa.posterURL} alt=''/></MolduraFilme><h1>{filmeInfo?filmeCapa.title:'Carregando...'}</h1></FilmeFooter>
+            <FilmeFooter>
+                <MolduraFilme data-identifier="movie-img-preview">
+                <img  src={filmeCapa.posterURL} alt=''/></MolduraFilme>
+                <h1 data-identifier="movie-and-session-infos-preview">{filmeInfo?filmeCapa.title:'Carregando...'}</h1>
+            </FilmeFooter>
         </>
     )
 };
