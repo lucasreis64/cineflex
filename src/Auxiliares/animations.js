@@ -107,5 +107,11 @@ export const animations = {
             transform: scale3d(1, 1, 1);
         }
     `
+    ,
+    loading: keyframes`
+        100%{
+        transform:translateX(100%);
+    }
+    `
 }
 

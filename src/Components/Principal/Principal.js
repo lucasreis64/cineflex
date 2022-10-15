@@ -2,13 +2,14 @@ import styled from "styled-components";
 import axios from "axios";
 import {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
-
+import { animations } from "../../Auxiliares/animations";
+const {loading} = animations
 export default function Principal() {
     const [filmes, setFilmes] = useState(null)
-
+    const filmesLoading=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     useEffect(() => {
 		const filmesPromise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
-
+        
 		filmesPromise.then(resposta => {
 			setFilmes(resposta.data);
 		});
@@ -23,7 +24,7 @@ export default function Principal() {
             <FilmesContainer>
                 <h1>Selecione o filme</h1>
                 {filmes===null?
-                    'carregando'
+                    filmesLoading.map(()=><Loading data-identifier="movie-outdoor"><div/></Loading>)
                     :
                     filmes.map((f)=>{
                         return(
@@ -66,6 +67,24 @@ const MolduraFilme = styled.div`
 
     img{
         width: 100%;
+    }
+`
+
+const Loading = styled.div`
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    div{
+        width: 40vw;
+        height: 30vh;
+        background: linear-gradient( to right , transparent, #e3e3e3, transparent);
+        transform: translateX(-100%);
+        animation: ${loading} 1s infinite;
     }
 `
 
