@@ -6,11 +6,6 @@ import { Link, useNavigate} from "react-router-dom";
 import { contexto } from "../Context/Context";
 import back from "../../img/back.svg"
 
-
-
-
-
-
 export default function Filme() {
     const navigate=useNavigate()
     const [filmeInfo, setFilmeInfo] = useState(null)

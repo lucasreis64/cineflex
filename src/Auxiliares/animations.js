@@ -1,12 +1,12 @@
 import {keyframes} from "styled-components";
 
-export const animations = {
-    deslizarEsquerda: keyframes`
+
+    export const deslizarEsquerda = keyframes`
     from{opacity:0; transform: translateX(-600px)}
     to{opacity:1; transform: translateX(-0px)}
     `
-    ,
-    variarQuatroVezes: keyframes`
+
+    export const variarQuatroVezes= keyframes`
     0% {
         transform: translateY(-20%);
         opacity: 0.2;
@@ -27,8 +27,8 @@ export const animations = {
         transform: translateY(0%);
         opacity: 1;
     }`
-    ,
-    variarSeisVezes: keyframes`
+
+    export const variarSeisVezes= keyframes`
     0% {
         transform: translateY(-100%);
         opacity: 0.2;
@@ -57,18 +57,18 @@ export const animations = {
         transform: translateY(0%);
         opacity: 1;
     }`
-    ,
-    trovao: keyframes`
+
+    export const trovao= keyframes`
         from{filter: brightness(0.7);}
         to{filter: brightness(1);}
     `
-    ,
-    deslizarCima: keyframes`
+
+    export const deslizarCima= keyframes`
         from{opacity:0;transform: translateY(-600px)}
         to{opacity:1;transform: translateY(0px)}
     `
-    ,
-    rolarCair : keyframes`
+
+    export const rolarCair = keyframes`
         0% {
             transform-origin: top left;
             animation-timing-function: ease-in-out;
@@ -89,8 +89,8 @@ export const animations = {
             opacity: 0;
         }
     `
-    ,
-    tremerZoom: keyframes`
+
+    export const tremerZoom= keyframes`
         from {
             transform: scale3d(1, 1, 1);
         }
@@ -107,11 +107,10 @@ export const animations = {
             transform: scale3d(1, 1, 1);
         }
     `
-    ,
-    loading: keyframes`
+
+    export const loading= keyframes`
         100%{
         transform:translateX(100%);
     }
     `
-}
 

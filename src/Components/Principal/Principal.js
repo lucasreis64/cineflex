@@ -2,8 +2,8 @@ import styled from "styled-components";
 import axios from "axios";
 import {useState, useEffect} from "react"
 import { Link } from "react-router-dom";
-import { animations } from "../../Auxiliares/animations";
-const {loading} = animations
+import { loading } from "../../Auxiliares/animations";
+
 export default function Principal() {
     const [filmes, setFilmes] = useState(null)
     const filmesLoading=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
